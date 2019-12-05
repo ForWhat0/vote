@@ -1,0 +1,263 @@
+
+   
+
+.all_first{
+    display: grid;
+    grid-template-areas: 
+    "...img_first name_first size_first price_first quanity_first removee_first total_first ...";
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    grid-gap: 2px;  
+    margin-bottom: 2px;  
+}
+
+.img_first{display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: img_first;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.size_first{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: size_first;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+
+.price_first{display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: price_first;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.name_first{display: flex;
+    align-items: center;
+    justify-content: center;
+     grid-area: name_first;background-color:rgba(43, 17, 92, 0.3);
+}
+.quanity_first{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: quanity_first;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+
+.remove_first{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: removee_first;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+
+.total_first{display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: total_first;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+
+
+
+
+
+
+
+.global{
+    display: inline;
+    
+}
+.all{
+    background-color: #f7f7f7;
+    display: grid;
+    grid-template-areas: 
+    "...img name size price quanity removee total ..."
+    "... ... ... ... ... ... details details ...";
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    grid-row-gap: 2px;    
+}
+.dropdown {
+    float: left;
+    margin-right: 10px;
+    overflow: hidden;
+  }
+  
+  .dropdown .dropbtn {
+   
+    border: none;
+    outline: none;
+    float: none;
+    width: 80px;
+    background-color: #fff;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 6px 0px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #777;
+    border-radius: 5px;
+   
+
+  }
+  
+  
+  
+  .dropdown_content {
+    
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 80px;
+    z-index: 1000;
+    text-align: center;
+    cursor: pointer;
+  }
+.img{display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: img;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.size{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: size;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.img img{
+    width: 100%;
+}
+.price{display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: price;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.name{display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+     grid-area: name;background-color:rgba(43, 17, 92, 0.3);
+}
+.quanity{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: quanity;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.quanity span{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 10px;
+    padding: 5px;
+    height: 0.5rem;
+    cursor: pointer;
+    margin: 2px; }
+    .quanity span:hover{
+        border-color: aqua;
+        color: aqua;
+    }
+.remove{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: removee;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.remove img{
+    cursor: pointer;    
+    width: 1.5rem;
+    
+}
+.remove img:hover{
+
+    filter: invert(100%) sepia(13%) saturate(3000%) hue-rotate(400deg) brightness(95%) contrast(100%);
+}
+.total{display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: total;
+    background-color:rgba(43, 17, 92, 0.3);
+}
+.details{text-align: center;
+    grid-area: details;background-color:rgba(43, 17, 92, 0.3);
+}
+
+.clear{
+    text-align: center;
+    height: 3em;
+    width: 10em;
+    outline: none;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor:pointer;
+    margin-top: 10px;
+    }   
+    .clear:hover{
+        background-color: red;
+        border-color: rgb(51, 0, 0);
+        color: rgb(51, 0, 0);
+    } 
+.order{
+    text-align: center;
+    height: 3em;
+    width: 10em;
+    outline: none;
+    background-color: green;
+    border: none;
+    font-size: 1rem;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    color: white;
+    cursor:pointer;
+    margin-bottom: 10px;
+    transition:all 0.5s linear;
+}    
+.order:hover{
+    transform: scale(1.1);
+}
+.madal_order{
+    display: flex;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+}
+.order_items{
+    padding: 10px;
+    display: grid;
+    background-color: gold;
+    text-align: center;
+}
+@media screen and (max-width: 650px) {
+    .all_first{display: none;}
+    .all{
+        display: grid;
+        grid-template-areas: 
+        "... img img name name name ..." 
+        "... size price quanity removee total ...";
+        grid-template-columns: 10px 1fr 1fr 1fr 1fr 1fr  10px;
+        grid-template-rows: 0.8fr 0.2fr;   
+        height: 20%;
+        grid-row-gap: 0px;  
+        margin-bottom: 5%;
+        
+    }
+    .details{
+        
+    width: 50%;
+    left: 25%;
+    position: absolute;
+    grid-area: none;
+   
+    }
+}

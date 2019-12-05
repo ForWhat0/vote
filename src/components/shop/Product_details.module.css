@@ -1,0 +1,188 @@
+.global{
+    display: grid;
+    grid-template-areas: 
+    "img info"
+    "img price"
+    "img butt"
+    "img changedesign";
+    grid-gap: 10px;
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-rows: 0.3fr 0.2fr 0.1fr 0.4fr ;
+    height: 75vh;
+    width: 80%;
+    margin-left: 10%;
+    grid-gap: 1vh;
+}
+li{
+  list-style-type: none;
+}
+.prise{
+  grid-area: prise;
+}
+
+.butt{
+  grid-area: butt;
+}
+.info h1{
+  margin-top: 5%;
+}
+.info{
+  text-align: center;
+  grid-area: info;
+}
+.img_container{   	
+    
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    background-size: cover; /* Масштабируем фон */
+    grid-area: img;
+    justify-content: center; 
+  display: flex;
+  align-items: center;
+}
+.img_container img{   	
+  max-width: 100%;position: absolute;
+  max-height: 100%;
+}
+.change_design_shadow{
+    grid-area: changedesign;
+    position: relative;
+    box-shadow: 0 3px 3px -1px rgba(0,0,0,0.2),0 4px 6px 1px rgba(0,0,0,0.14),0 1px 6px 1px rgba(0,0,0,0.12) ;
+    border-radius: 15px ;
+    border: 1px solid rgba(0,0,0,0.02) ;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 5px;
+}
+.change_design{
+    height: 100%;
+    width: 100%;
+    
+    
+}
+.little_pictures{
+    height: 100%;
+    width: 30%;
+    display: inline-block;
+    margin: 10px;
+    background-size: 100% 100%; /* Масштабируем фон */
+    background-repeat: no-repeat;
+    justify-content: center; 
+    vertical-align: middle;
+    position: relative;
+    
+}
+.little_pictures img{
+  position: absolute;
+}
+.first_little_pictures{
+    
+    height: 100%;
+    width: 100%;
+    position: relative;
+   
+}
+.details_container{
+    grid-area: details;}
+    .detail_button{
+        margin-right:10px; 
+     align-self: center;
+    text-align: center;
+    justify-content: center;
+    height: 3em;
+    width: 8em;
+    font-size: 1rem; 
+    outline: none;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor:pointer; }
+    .detail_button:hover{
+        background-color: white;
+        
+    }   
+    
+    .param_size{
+        float: none;
+    width: inherit;
+    background-color: #fff;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 6px 0px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #777;
+    border-radius: 5px;
+    
+    }
+   
+      
+      .dropdown {
+        float: left;
+        margin-right: 10px;
+        overflow: hidden;
+      }
+      
+      .dropdown .dropbtn {
+        min-width: 160px;
+        border: none;
+        outline: none;
+        float: none;
+        width: inherit;
+        background-color: #fff;
+        margin-right: 0;
+        margin-bottom: 0;
+        padding: 6px 0px;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid #777;
+        border-radius: 5px;
+       
+ 
+      }
+      
+      
+      
+      .dropdown_content {
+        
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        z-index: 1000;
+      }
+      @media screen and (max-width: 950px){
+        .global{
+          
+          grid-template-areas: 
+          "img"
+          "changedesign "
+          "info"
+          "price"
+          "butt";
+          grid-gap: 10px;
+          grid-template-columns: 1fr;
+          grid-template-rows:0.7fr 0.2fr 0.02fr 0.06fr 0.02fr ;
+          height: 150vh;
+          width: 80%;
+          margin-left: 10%;
+         
+        }
+      
+      }  
+      @media screen and (max-width: 650px){
+        .global{
+          
+          width: 96%;
+          margin-left: 2%;
+         
+        }
+       
+      }  
+     
+      
+      
+      
+      
