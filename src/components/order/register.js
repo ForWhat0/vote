@@ -1,230 +1,275 @@
 import React from "react";
-import {users} from '../shop/context';
-import { Redirect } from 'react-router';
-import s from './admin.module.css';
+import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
+import _ from "lodash";
+import { users } from "../shop/context";
+import { Redirect } from "react-router";
+import s from "./admin.module.css";
 
-const obl_arr= [
-       {
-           name:'Київ',
-           value:'Kiev_City'
-        },
-        {
-            name:'Вінницька',
-            value:'Vinnytsia'
-         },
-         {
-            name:'Волинська',
-            value:'Volyn'
-         },
-         {
-            name:'Дніпропетровська',
-            value:'Dnipropetrovsk'
-         },
-         {
-            name:'Донецька',
-            value:'Donetsk'
-         },
-         {
-            name:'Житомирська',
-            value:'Zhytomyr'
-         },
-         {
-            name:'Закарпатська',
-            value:'Zakarpattia'
-         },
-         {
-            name:'Запорізька',
-            value:'Zaporizhia'
-         },
-         {
-            name:'Івано-Франківська	',
-            value:'Ivano_Frankivsk'
-         },
-         {
-            name:'Київська',
-            value:'Kiev'
-         },
-         {
-            name:'Кіровоградська',
-            value:'Kirovohrad'
-         },
-         {
-            name:'Луганська',
-            value:'Luhansk'
-         },
-         {
-            name:'Львівська',
-            value:'Lviv'
-         },
-         {
-            name:'Миколаївська',
-            value:'Mykolaiv'
-         },
-         {
-            name:'Одеська',
-            value:'Odessa'
-         },
-         {
-            name:'Полтавська',
-            value:'Poltava'
-         },
-         {
-            name:'Рівненська',
-            value:'Rivne'
-         },
-         {
-            name:'Сумська',
-            value:'Sumy'
-         },
-         {
-            name:'Тернопільська',
-            value:'Ternopil'
-         },
-         {
-            name:'Харківська',
-            value:'Kharkiv'
-         },
-         {
-            name:'Херсонська',
-            value:'Kherson'
-         },
-         {
-            name:'Хмельницька',
-            value:'Khmelnytskyi'
-         },
-         {
-            name:'Черкаська',
-            value:'Cherkasy'
-         },
-         {
-            name:'Чернівецька',
-            value:'Chernivtsi'
-         },
-         {
-            name:'Чернігівська',
-            value:'Chernihiv'
-         },
+const SignupSchema = Yup.object().shape({
+  login: Yup.string()
+    .trim()
+    .min(6, "Логін повинен містити не менше 6 знаків")
+    .matches(
+      /[a-zA-Z0-9]/,
+      "Логін повинен містити тільки латинські букви і цифри"
+    )
+    .required(),
+  number: Yup.string()
+    .trim()
+    .min(
+      6,
+      "Логін повинен містити не менше 6 знаків, тільки латинські букви і цифри"
+    )
+    .matches(
+      /[a-zA-Z0-9@]/,
+      "Логін повинен містити тільки латинські букви і цифри"
+    )
+    .required(),
+  password: Yup.string()
+    .trim()
+    .min(
+      6,
+      "Пароль повинен містити не менше 6 знаків, тільки латинські букви і цифри"
+    )
+    .matches(
+      /[a-zA-Z0-9]/,
+      "Пароль повинен містити тільки латинські букви і цифри"
+    )
+    .required(),
+  password_2: Yup.string()
+    .trim()
+    .oneOf([Yup.ref("password"), null], "Паролі не співпадають")
+    .required()
+});
 
-]
-class  Register extends React.Component{
-    state = {
-        login:'',
-        number:'',
-        oblast:'Kiev',
-        password:'',
-        password_2:'',
-        redirect:false,
-        error_text:'',
-        error_password:false,
-        error_login:false,
-        error_number:false
-    }
+const obl_arr = [
+  {
+    name: "Київ",
+    value: "Kiev_City"
+  },
+  {
+    name: "Вінницька",
+    value: "Vinnytsia"
+  },
+  {
+    name: "Волинська",
+    value: "Volyn"
+  },
+  {
+    name: "Дніпропетровська",
+    value: "Dnipropetrovsk"
+  },
+  {
+    name: "Донецька",
+    value: "Donetsk"
+  },
+  {
+    name: "Житомирська",
+    value: "Zhytomyr"
+  },
+  {
+    name: "Закарпатська",
+    value: "Zakarpattia"
+  },
+  {
+    name: "Запорізька",
+    value: "Zaporizhia"
+  },
+  {
+    name: "Івано-Франківська	",
+    value: "Ivano_Frankivsk"
+  },
+  {
+    name: "Київська",
+    value: "Kiev"
+  },
+  {
+    name: "Кіровоградська",
+    value: "Kirovohrad"
+  },
+  {
+    name: "Луганська",
+    value: "Luhansk"
+  },
+  {
+    name: "Львівська",
+    value: "Lviv"
+  },
+  {
+    name: "Миколаївська",
+    value: "Mykolaiv"
+  },
+  {
+    name: "Одеська",
+    value: "Odessa"
+  },
+  {
+    name: "Полтавська",
+    value: "Poltava"
+  },
+  {
+    name: "Рівненська",
+    value: "Rivne"
+  },
+  {
+    name: "Сумська",
+    value: "Sumy"
+  },
+  {
+    name: "Тернопільська",
+    value: "Ternopil"
+  },
+  {
+    name: "Харківська",
+    value: "Kharkiv"
+  },
+  {
+    name: "Херсонська",
+    value: "Kherson"
+  },
+  {
+    name: "Хмельницька",
+    value: "Khmelnytskyi"
+  },
+  {
+    name: "Черкаська",
+    value: "Cherkasy"
+  },
+  {
+    name: "Чернівецька",
+    value: "Chernivtsi"
+  },
+  {
+    name: "Чернігівська",
+    value: "Chernihiv"
+  }
+];
 
-    change_login=(e)=>{
-        this.setState({
-            login: e.target.value
-        })
-    }
-    change_oblast=(e)=>{
-        this.setState({
-            oblast: e.target.value
-        })
-    } 
-    change_number=(e)=>{
-        this.setState({
-            number: e.target.value
-        })
-    }  
-    change_password=(e)=>{
-        this.setState({
-            password: e.target.value
-        })
-    }  
-    change_password_2=(e)=>{
-        this.setState({
-            password_2: e.target.value
-        })
-    }  
-   
+class Register extends React.Component {
+  state = {
+    error_text: "",
+    redirect: false
+  };
 
-    handleSumbit=()=>{
-        if(this.state.password!=this.state.password_2){
-            this.setState({
-                error_text:'паролі не співадаюь',
-                error:true,
-                error_password:true,
-                password:'',
-                password_2:''
-            })
-            setTimeout(function () {
-                this.setState({error_password:false});
-              }.bind(this), 500)
-        }
-        else{users.orderByChild("login").equalTo(this.state.login).once("value",snapshot => {
-            if (snapshot.exists()){
+  handleSubmit = values => {
+    users
+      .orderByChild("login")
+      .equalTo(values.login)
+      .once("value", snapshot => {
+        if (snapshot.exists()) {
+          this.setState({
+            error_text: "такий логін уже існує"
+          });
+        } else {
+          users
+            .orderByChild("number")
+            .equalTo(values.number)
+            .once("value", snapshot => {
+              if (snapshot.exists()) {
                 this.setState({
-                    error_text:'такий логін уже існує',
-                    error:true,
-                    error_login:true,
-                    login:''
-                })
-                setTimeout(function () {
-                    this.setState({error_login:false});
-                  }.bind(this), 500)
-            }else{
-                users.orderByChild("number").equalTo(this.state.number).once("value",snapshot => {
-                    if (snapshot.exists()){
-                        this.setState({
-                            error_text:'номер чи емайл уже використовується',
-                            error:true,
-                            error_number:true,
-                            number:''
-                        })
-                        setTimeout(function () {
-                            this.setState({error_number:false});
-                          }.bind(this), 500)
-                    }else{
-                        
-                        users.push().set({
-                            login:this.state.login,
-                            number:this.state.number,
-                            password:this.state.password,
-                            oblast:this.state.oblast,
-                            'last_poll':'ok',
-                           
-
-                            
-                        })
-                        this.setState({
-                            redirect:true
-                        })
-                    }
-                })
-            }
-        })}
-        
-        
+                  error_text: "номер чи емайл уже використовується"
+                });
+              } else {
+                users.push().set({
+                  ...values,
+                  last_poll: "ok"
+                });
+                this.setState({
+                  redirect: true
+                });
+              }
+            });
+        }
+      });
+  };
+  render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/Order" />;
     }
-    render(){
-        if (this.state.redirect) {
-            return <Redirect push to="/Order" />;
-          }
-         
-    return(
-        <div className={s.form}>
+
+    return (
+      <div className={s.form}>
         <h1>Реєстрація</h1>
-    {this.state.error == true ? <div style={{marginBottom: '5%'}}>{this.state.error_text}</div>:null}
-        <input className={this.state.error_login?s.error:null} required  autocomplete="off"  spellcheck="false"  name='login' placeholder="login" value={this.state.login} onChange={e => this.change_login(e)}/>
-        <input className={this.state.error_number?s.error:null} required   autocomplete="off"  spellcheck="false" name='number' placeholder="email or number" value={this.state.number} onChange={e => this.change_number(e)}/>
-        <select required  oblast='oblast' value={this.state.oblast} onChange={e => this.change_oblast(e)}>
-            {obl_arr.map(item=>
-                <option value={item.value}>{item.name}</option>
-                )}
-            </select> 
-        <input className={this.state.error_password?s.error:null} required  autocomplete="off"  spellcheck="false" name='password' placeholder="password" value={this.state.password} onChange={e => this.change_password(e)}/>
-        <input className={this.state.error_password?s.error:null} required  autocomplete="off"  spellcheck="false" name='passwrod_2' placeholder="password" value={this.state.password_2} onChange={e => this.change_password_2(e)}/>
-        <button onClick={ this.state.login  == '' || this.state.number  == '' || this.state.password == '' ? ()=>{alert('заповнітьусі поля')} : (e)=>this.handleSumbit(e)}>Sumbit</button>
-        </div>
+        {this.state.error && (
+          <div style={{ marginBottom: "5%" }}>{this.state.error_text}</div>
+        )}
+        <Formik
+          initialValues={{
+            login: "",
+            number: "",
+            oblast: "Kiev",
+            password: "",
+            password_2: ""
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={values => {
+            // same shape as initial values
+            this.handleSubmit(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form
+              onChange={() =>
+                this.setState({
+                  error_text: ""
+                })
+              }
+            >
+              <Field
+                className={errors.login && s.error}
+                required
+                autocomplete="off"
+                spellcheck="false"
+                name="login"
+                placeholder="Логін для входу"
+              />
+              {errors.login && touched.login && <div>{errors.login}</div>}
+              <Field
+                className={errors.number && s.error}
+                required
+                autocomplete="off"
+                spellcheck="false"
+                name="number"
+                placeholder="Номер або e-mail"
+              />
+              {errors.number && touched.number && <div>{errors.number}</div>}
+              <Field as="select" required name="oblast">
+                {obl_arr.map(item => (
+                  <option value={item.value}>{item.name}</option>
+                ))}
+              </Field>
+              <Field
+                className={errors.password && s.error}
+                required
+                autocomplete="off"
+                spellcheck="false"
+                name="password"
+                placeholder="Пароль"
+                type="password"
+              />
+              {errors.password && touched.password && (
+                <div>{errors.password}</div>
+              )}
+              <Field
+                className={errors.password_2 && s.error}
+                required
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                name="password_2"
+                placeholder="Повторіть пароль"
+              />
+              {errors.password_2 && touched.password_2 && (
+                <div>{errors.password_2}</div>
+              )}
+              {this.state.error_text && <div>{this.state.error_text}</div>}
+              <button type="submit">Submit</button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     );
-}}
+  }
+}
 export default Register;
