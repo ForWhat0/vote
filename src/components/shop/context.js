@@ -28,6 +28,10 @@ const ProductContext= React.createContext();
 
 class ProductProvider extends React.Component{
     state={
+        summ_hw:0,
+        summ_di:0,
+        summ_hr:0,
+        index_user:0,
         table:[],
         left_days:'30',
         time_poll_good:false,
@@ -38,6 +42,7 @@ class ProductProvider extends React.Component{
         error_password:false,
         user:null,
         islogined:'false',
+        start:false,
         type:'bar',
         indecators:[],
         oblast:'all',
@@ -77,6 +82,8 @@ class ProductProvider extends React.Component{
                 option:snap.val().option,
                 dataa:snap.val().data,
                 indecator:snap.val().indecator,
+                weight_of_question:snap.val().weight_of_question,
+                weight_of_option:snap.val().weight_option,
                 Cherkasy:snap.val().Cherkasy,
                 Chernihiv:snap.val().Chernihiv,
                 Chernivtsi:snap.val().Chernivtsi,
@@ -263,6 +270,11 @@ showDetails=(id)=>{
         return {details:product}
     })
 };
+ get_start=()=>{
+    this.setState({
+        start:true
+    })
+   }
 showOrderDetails=(id)=>{
     const product=this.getOrder(id);
     this.setState(()=>{
@@ -395,6 +407,18 @@ dropdown_buttun = (id) => {
         obj => (obj.id === id ? Object.assign(obj, { dropdown:!obj.dropdown }) : obj)
       )
     }))}
+    nextItem_first_question=(answerFirst)=>{
+        users.child(this.state.user[0].id).child('name').set(answerFirst);
+        this.setState({
+            number:this.state.number+1
+        })
+    }
+    nextItem_second_question=(answerSecond)=>{
+        users.child(this.state.user[0].id).child('kilkist').set(answerSecond);
+        this.setState({
+            number:this.state.number+1
+        })
+    }
     nextItem_for_first_question=(answer_first)=>{
         users.child(this.state.user[0].id).child('cwed').set(answer_first);
         this.setState({
@@ -407,9 +431,42 @@ dropdown_buttun = (id) => {
             number:this.state.number+1
         })
     }
-    nextItem=(id,name,answer)=>{
-        let length = this.state.products.length + 2; 
+    nextItem=(id,name,answer,indecator,weight,weight_option_state)=>{
+        let length = this.state.products.length + 4;
+        if (indecator == 'Цифрова інфраструктура'){
+                let i = Number(weight_option_state);
+                let w = Number(weight); 
+                let summ = i*w;
+                this.setState({
+                    summ_hw:this.state.summ_hw+summ
+                })  
+        }
+        else if (indecator == 'Цифрові інструменти'){
+            let i = Number(weight_option_state);
+        let w = Number(weight); 
+        let summ = i*w;
+            this.setState({
+                summ_di:this.state.summ_di+summ
+            })
+           
+        }
+        else if (indecator == 'Цифрова грамотність'){
+            let i = Number(weight_option_state);
+        let w = Number(weight); 
+        let summ = i*w;
+            this.setState({
+                summ_hr:this.state.summ_hr+summ
+            })
+        }
         if (this.state.number === length - 1){
+            let i = Number(weight_option_state);
+            let w = Number(weight); 
+            let summ_hr = i*w;
+            let summ_all = (this.state.summ_di*0.5)+(this.state.summ_hw*0.2)+(summ_hr*0.3);
+            let fixed_index=summ_all.toFixed(3);
+            this.setState({
+                index_user:fixed_index
+            })
             var user_answers=[...this.state.answers];
             user_answers.push({
                 answer
@@ -431,8 +488,11 @@ dropdown_buttun = (id) => {
                             + currentdate.getDate() + "/" 
                             + currentdate.getFullYear();
             
-            answers.push().set({'data':datetime,'user':this.state.user[0].login,'answers':user_answers})
+            answers.push().set({'data':datetime,'user':this.state.user[0].login,'answers':user_answers,'index':fixed_index})
+            users.child(this.state.user[0].id).child('last_index').set(fixed_index)
             users.child(this.state.user[0].id).child('last_poll').set(datetime)
+            users.child(this.state.user[0].id).child('all_index').push().set(fixed_index)
+            users.child(this.state.user[0].id).child('all_times').push().set(datetime)
         }
         else{
            
@@ -508,7 +568,10 @@ dropdown_buttun = (id) => {
                              password:snap.val().password,
                              number:snap.val().number,
                              oblast:snap.val().oblast,
-                             last_poll:snap.val().last_poll
+                             last_poll:snap.val().last_poll,
+                             last_index:snap.val().last_index,
+                             all_index:snap.val().all_index,
+                             all_times:snap.val().all_times
                          })
                          
                          this.setState({
@@ -516,6 +579,7 @@ dropdown_buttun = (id) => {
                            time_poll_good:true,
                              islogined:true,
                              user:user
+                             
                          })
                        }
                         else{
@@ -525,7 +589,10 @@ dropdown_buttun = (id) => {
                                password:snap.val().password,
                                number:snap.val().number,
                                oblast:snap.val().oblast,
-                               last_poll:snap.val().last_poll
+                               last_poll:snap.val().last_poll,
+                               last_index:snap.val().last_index,
+                               all_index:snap.val().all_index,
+                               all_times:snap.val().all_times
                            })
                            
                            this.setState({
@@ -616,6 +683,9 @@ dropdown_buttun = (id) => {
       return(
           <ProductContext.Provider value={{
               ...this.state,
+              get_start:this.get_start,
+              nextItem_first_question:this.nextItem_first_question,
+              nextItem_second_question:this.nextItem_second_question,
               nextItem_for_first_question:this.nextItem_for_first_question,
               nextItem_for_second_question:this.nextItem_for_second_question,
               log_out:this.log_out,

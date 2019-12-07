@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'; 
 import s from './product.module.css';
-import {votes} from '../shop/context';
+import {votes, indecators} from '../shop/context';
 import PropTypes from 'prop-types';
 import loader from './loading.gif'
 import { ProductConsumer } from './context';
@@ -109,22 +109,38 @@ const org_form=[
 
 export default function Product(props){
   const [name, set_name] = useState('');
-  const [answer, set_answer] = useState('');
+  const [answer, set_answer] = useState(null);
   const [value, set_value] = useState([]);
+  const [weight, set_weight] = useState();
+  const [weight_option_state, set_weight_option_state] = useState();
   const [answer_first, set_answer_first] = useState([]);
-  const [answer_second, set_answer_second] = useState('');
+  const [answer_second, set_answer_second] = useState(null);
   const [search, set_serch] = useState('');
   const [find, set_find] = useState('');
   const [dropdown, set_dropdown] = useState(false);
-  
-  const handleOptionChange=function (e,index,item){
+  const [one_answer, set_oneanswer] = useState('');
+  const [second_answer, set_second_answer] = useState('');
+ 
+
+  const handleOptionChange=function (e,index,item,weight_of_question,weight_option){
     set_name(name=>index)
     set_answer(answer=>item)
+    set_weight(weight=>weight_of_question)
+    set_weight_option_state(weight_option_state=>weight_option)
     let value_ = value.slice();
     value_[index] = e.target.checked;
     set_value(value=>value_)
     
   }
+  const handleOne=function (value){
+    set_oneanswer(one_answer=>value)
+  }
+  const  handleSecond=function (event){
+    let value = event.target.getAttribute('value');
+    set_second_answer(second_answer=>value)
+    set_dropdown(dropdown=>!dropdown)
+  }
+ 
   const handleFirstChange=function (event){
     let state = answer_first;
     let check = event.target.checked;
@@ -139,7 +155,7 @@ export default function Product(props){
         } 
     }
 }
-console.log(answer_second)
+
 const handleSecondChange=function (event){
   let value = event.target.getAttribute('value');
   set_answer_second(answer_second=>value)
@@ -150,7 +166,8 @@ const handleSecondChange=function (event){
   const checked_false=function(name){
     let value_ = value.slice();
     value_[name] = !value_[name];
-    set_value(value=>value_)
+    set_value(value=>[])
+    set_answer(answer=>null)
   }
   const searching=function(event){
     let value = event.target.value
@@ -159,22 +176,86 @@ const handleSecondChange=function (event){
     set_answer_second(answer_second=>value)
         
 }
-const drop=function(event){
- set_dropdown(dropdown=>true)
-      
+const drop=function(){
+ set_dropdown(dropdown=>true) 
 }
+
+const down=function(){
+  set_dropdown(dropdown=>false) 
+ }
   
         const search_low=find.toLowerCase();
         const filter_data=org_form.filter(element=>
             element.name.toLowerCase().indexOf(search_low) !==-1 )
   if(props.item.option){
-    const {id,option,select}=props.item;
+    const {id,option,select,weight_of_question,indecator,weight_of_option}=props.item;
+    if (props.is_start == false){
+      return(
+        <div className={s.start}>
+          <li>Усі ваші  дані - конфіденційні.</li>
+         <li> Мета збору даних - глибокий аналіз стану цифрової трансформації та вироблення рекомендацій.</li>  
+         <li>Орієнтований час проходження - близько 7 хвилин</li>  
+         <button style={{marginTop:'unset'}} className={s.butt} onClick={ ()=>{props.start()}}>Почати опитування</button>
+        </div>
+      )
+    }else{
     return(
       <div style={{width:'100%',textAlign:'center'}} >
-        <div >{`${props.number + 1}/${props.length + 2 }`}</div>
+        <div style={{marginTop:'10px'}}>
+          {`${props.number + 1}/${props.length + 4 }`}
+          <progress value={props.number} max={props.length + 3}/>
+          </div>
         {
           props.number == 0 ? 
-          <div>
+          <div >
+            <h1>
+           Назва вашого підприємства
+            </h1>
+            <li>
+            <input className={s.inp} type='login'  value={one_answer} onChange={e =>handleOne(e.target.value)} />
+            </li>
+            <button className={s.butt} onClick={ one_answer == '' ?  ()=>{alert('введіть назву вашого підприємства')} : ()=>{ props.one(one_answer)}} >NEXT</button>
+          </div>
+          :
+          props.number == 1 ? 
+          <div >
+            <h1>
+            Кількість працівників у вашій організації
+            </h1>
+           <div className={s.dropdown}>
+           <div className={s.global}>
+             <div className={s.text}>
+             <input  placeholder='оберіть кількість' required value={second_answer} id={s.filter} onClick={()=>drop()} />
+             <span className={s.arrow}>
+                {dropdown == false ?
+                <i style={{transform:'rotate(45deg)',WebkitTransform:'rotate(45deg)'}} className={s.dropbtn} >
+                </i>
+                :
+                <i  style={{transform:'rotate(225deg)',WebkitTransform:'rotate(225deg)'}} className={s.dropbtn} >
+                </i>
+              }
+              </span>
+             </div>
+                
+              </div>
+              <div className={s.global}>
+                <ul  className={s.dropdown_content} style={{height:'auto',display:dropdown ? 'block' : 'none' }}>
+            <li value='мікро підприємство' onClick={(event)=>handleSecond(event)}>від 1 до 10</li>
+            <li value='мале підприємство' onClick={(event)=>handleSecond(event)}>від 10 до 50</li>
+            <li value='середнє підприємство ' onClick={(event)=>handleSecond(event)}>від 50 до 250</li>
+            <li value='велике підприємство ' onClick={(event)=>handleSecond(event)}>більше 250</li>
+                 </ul>
+                 </div>   
+                
+                 
+           </div>
+            
+          
+            <button className={s.butt} onClick={answer_second == '' ?  ()=>{alert('оберіть свій варіант')} : ()=>{down();props.second(second_answer)}} >NEXT</button>
+          </div>
+          :
+          props.number == 2 ? 
+          <div className={s.option}>
             <h1>
             Оберіть галузь господарювання за видами економічної діяльності (КВЕД)
             </h1>
@@ -186,11 +267,11 @@ const drop=function(event){
 					</li>
           </ul>
           )}
-            <button onClick={()=>{ props.nextItem_for_first(answer_first)}} >NEXT</button>
+            <button className={s.butt} onClick={ answer_first.length == 0 ?  ()=>{alert('оберіть свій варіант')} : ()=>{ props.nextItem_for_first(answer_first)}} >NEXT</button>
           </div>
           :
-          props.number == 1 ? 
-          <div>
+          props.number == 3 ? 
+          <div >
             <h1>
             Якою є організаційна форма вашого підприємства?
             </h1>
@@ -220,20 +301,23 @@ const drop=function(event){
            </div>
             
           
-            <button onClick={()=>{ props.nextItem_for_second(answer_second)}} >NEXT</button>
+            <button className={s.butt} onClick={answer_second == null ?  ()=>{alert('оберіть свій варіант')} : ()=>{ props.nextItem_for_second(answer_second)}} >NEXT</button>
           </div>
           :
-          <div>
+          <div className={s.option}>
             <h1>{select}</h1>
-            {option.map((item,index)=>
-          <ul>
+            <ul>
+            {option.map((item,index)=>{
+           const weight_option = weight_of_option[index];
+           return(
 					<li>
- <input type="radio" checked={value[index]}  onChange={(e)=>handleOptionChange(e,index,item)} id={item} name={id}/>
- <label  onChange={(e)=>handleOptionChange(e,index,item)}  value={item} for={item}>{item}</label>
+ <input type="radio" checked={value[index]} required onChange={(e)=>handleOptionChange(e,index,item,weight_of_question,weight_option)} id={item} name={id}/>
+ <label    value={item} for={item}>{item}</label>
 					</li>
-          </ul>
-          )}
-           <button onClick={()=>{ props.index(id,name,answer);checked_false(name)}} >NEXT</button>
+          
+            )})}
+          </ul>                      
+           <button className={s.butt} onClick={ answer == null ?  ()=>{alert('оберіть свій варіант')} : ()=>{ props.index(id,name,answer,indecator,weight,weight_option_state);checked_false(name)} } >NEXT</button>
           </div>
         }
     
@@ -242,7 +326,7 @@ const drop=function(event){
           
          
         </div>
-    )
+    )}
   }
   else{return(<div>WAIT</div>)}
 }

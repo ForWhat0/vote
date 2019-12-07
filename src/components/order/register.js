@@ -214,16 +214,16 @@ class  Register extends React.Component{
         <div className={s.form}>
         <h1>Реєстрація</h1>
     {this.state.error == true ? <div style={{marginBottom: '5%'}}>{this.state.error_text}</div>:null}
-        <input className={this.state.error_login?s.error:null} required autocomplete="off"  spellcheck="false"  name='login' placeholder="login" value={this.state.login} onChange={e => this.change_login(e)}/>
-        <input className={this.state.error_number?s.error:null} required autocomplete="off"  spellcheck="false" name='number' placeholder="email or number" value={this.state.number} onChange={e => this.change_number(e)}/>
-        <select  oblast='oblast' value={this.state.oblast} onChange={e => this.change_oblast(e)}>
+        <input className={this.state.error_login?s.error:null} required  autocomplete="off"  spellcheck="false"  name='login' placeholder="login" value={this.state.login} onChange={e => this.change_login(e)}/>
+        <input className={this.state.error_number?s.error:null} required   autocomplete="off"  spellcheck="false" name='number' placeholder="email or number" value={this.state.number} onChange={e => this.change_number(e)}/>
+        <select required  oblast='oblast' value={this.state.oblast} onChange={e => this.change_oblast(e)}>
             {obl_arr.map(item=>
                 <option value={item.value}>{item.name}</option>
                 )}
             </select> 
-        <input className={this.state.error_password?s.error:null} required autocomplete="off"  spellcheck="false" name='password' placeholder="password" value={this.state.password} onChange={e => this.change_password(e)}/>
-        <input className={this.state.error_password?s.error:null} required autocomplete="off"  spellcheck="false" name='passwrod_2' placeholder="password" value={this.state.password_2} onChange={e => this.change_password_2(e)}/>
-        <button onClick={(e)=>this.handleSumbit(e)}>Sumbit</button>
+        <input className={this.state.error_password?s.error:null} required  autocomplete="off"  spellcheck="false" name='password' placeholder="password" value={this.state.password} onChange={e => this.change_password(e)}/>
+        <input className={this.state.error_password?s.error:null} required  autocomplete="off"  spellcheck="false" name='passwrod_2' placeholder="password" value={this.state.password_2} onChange={e => this.change_password_2(e)}/>
+        <button onClick={ this.state.login  == '' || this.state.number  == '' || this.state.password == '' ? ()=>{alert('заповнітьусі поля')} : (e)=>this.handleSumbit(e)}>Sumbit</button>
         </div>
     );
 }}

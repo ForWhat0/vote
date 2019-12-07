@@ -3,13 +3,18 @@ import s from "./info.module.css";
 import Product from '../shop/Product';
 import {ProductConsumer} from '../shop/context';
 import Form from './form';
+import {Link} from 'react-router-dom';
 
 const Info =()=>{
     return(
       
         <ProductConsumer>
          {product=>{
-              const {nextItem,number,nextItem_for_second_question,nextItem_for_first_question}=product; 
+              const {nextItem,number,start,
+                
+                nextItem_for_second_question,nextItem_for_first_question,
+                nextItem_first_question,nextItem_second_question,get_start}=product; 
+                
               const length = product.products.length;
                  return( 
                    <React.Fragment>
@@ -18,9 +23,13 @@ const Info =()=>{
                      product.time_poll_good === true ? 
                      
                      
-                     <Product nextItem_for_first={nextItem_for_first_question} nextItem_for_second={nextItem_for_second_question}  index={nextItem} length={length} number={number} item={product.single} />
+                     <Product is_start={start} start={get_start} one={nextItem_first_question} second={nextItem_second_question} nextItem_for_first={nextItem_for_first_question} nextItem_for_second={nextItem_for_second_question}  index={nextItem} length={length} number={number} item={product.single} />
                     :
-                 <div className={s.thx}>Дякуємо вам , днів до наступного опитування:{product.left_days}</div>
+         <div className={s.thx}>
+           <li>Ваш індекс цифрової трансформації = <span style={{color:'green'}}>{product.index_user == 0 ? product.user[0].last_index : product.index_user } </span></li>
+           Дякуємо Вам , днів до наступного опитування: <span style={{color:'green'}}>{product.left_days}</span>
+           <li>Ви можете спостерігати за  вашим прогресом  у вашому <Link style={{color:'green',borderBottom:'1px solid black'}} to='/cabinet'>кабінеті</Link></li>
+           </div>
                     }
                      
                   

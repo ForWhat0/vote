@@ -150,6 +150,7 @@
 .content{
     background-color:  #E3E3E3;
     grid-area: contentt;
+    z-index: 99999;
 }
 .length{
     position: absolute;

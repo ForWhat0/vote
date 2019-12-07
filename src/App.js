@@ -5,6 +5,7 @@ import Content from "./components/content";
 import { BrowserRouter } from 'react-router-dom';
 import {ProductProvider} from './components/shop/context';
 import Modal from "./components/shop/modal";
+import {Link} from 'react-router-dom';
 import logo from './components/logo.png';
 import {ProductConsumer} from './components/shop/context';
 import  { useState } from 'react';
@@ -55,7 +56,7 @@ import  { useState } from 'react';
    <div className={s.dropdown_content} style={{display: dropdown ? 'block' : 'none' }}>
           <ul>
            <li  className={s.profil_text} onClick={()=>{set_dropdowb(dropdown=>!dropdown)}}>
-               Мій кабінет 
+                <Link to='/cabinet'>Мій кабінет</Link>
            </li>
            <li  className={s.profil_text} onClick={()=>{product.log_out();set_dropdowb(dropdown=>!dropdown)}}>
                Вихід
