@@ -24,8 +24,7 @@ export default function Form(props) {
         onChange={e => change_log(e.target.value)}
         type="text"
         name="login"
-        spellcheck="false"
-        placeholder="login"
+        placeholder="Логін"
         required
         autocomplete="off"
       />
@@ -35,8 +34,7 @@ export default function Form(props) {
         onChange={e => change_pass(e.target.value)}
         type="password"
         name="password"
-        spellcheck="false"
-        placeholder="password"
+        placeholder="Пароль"
         required
         autocomplete="off"
       />
@@ -45,7 +43,7 @@ export default function Form(props) {
           props.login(login, password);
         }}
       >
-        Sign in
+        Увійти
       </button>
       <Link to="/Register">
         <div style={{ marginTop: "20px" }}>Зареєструватися</div>

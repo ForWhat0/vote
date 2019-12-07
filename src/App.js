@@ -21,6 +21,7 @@ const APP = () => {
           <div className={s.header}>
             <ProductConsumer>
               {product => {
+                console.log(product);
                 return product.islogined === "false" ? (
                   <div className={s.header_all}>
                     <div

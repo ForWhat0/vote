@@ -44,8 +44,7 @@ export default function Modal() {
                   onChange={e => change_log(e.target.value)}
                   type="text"
                   name="login"
-                  spellcheck="false"
-                  placeholder="login"
+                  placeholder="Логін"
                   required
                   autocomplete="off"
                 />
@@ -55,8 +54,7 @@ export default function Modal() {
                   onChange={e => change_pass(e.target.value)}
                   type="password"
                   name="password"
-                  spellcheck="false"
-                  placeholder="password"
+                  placeholder="Пароль"
                   required
                   autocomplete="off"
                 />
@@ -65,7 +63,7 @@ export default function Modal() {
                     do_login(login, password);
                   }}
                 >
-                  Sign in
+                  Увійти
                 </button>
                 <Link onClick={() => closeModal()} to="/Register">
                   <div style={{ marginTop: "20px" }}>Зареєструватися</div>
