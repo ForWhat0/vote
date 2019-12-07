@@ -7,7 +7,8 @@ import Admin from "./admin/admin";
 import Register from "./order/register";
 import Cabinet from "./shop/cabinet";
 
-const Content = () => {
+const Content = props => {
+  console.log(123123, props);
   return (
     <article className="content">
       <Route path="/Cabinet" component={Cabinet} />
