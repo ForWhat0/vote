@@ -86,6 +86,7 @@ const APP = () => {
                             onClick={() => {
                               product.log_out();
                               set_dropdowb(dropdown => !dropdown);
+                              document.location.reload(true);
                             }}
                           >
                             Вихід

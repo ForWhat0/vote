@@ -1,74 +1,67 @@
-.imgContainer{
-    position: relative;
-    overflow: hidden;
-    border: 1px solid black;
-    background-color: #FFF4E0;
-    border-radius: 5px;
-    text-align: center;
-  
+.imgContainer {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid black;
+  background-color: #fff4e0;
+  border-radius: 5px;
+  text-align: center;
 }
 
-.imgContainer img{
+.imgContainer img {
   border: 1px solid #ccc;
-  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   max-width: 100%;
   height: auto;
-    
 }
-.product_button{
+.product_button {
   background-color: white;
   position: absolute;
-  bottom:0;
+  bottom: 0;
   right: 0;
   outline: none;
-    border: none;
-    border-radius: 5px 0 0 0;
-    transition: all 0.2s linear;
-    cursor:pointer;
-    transform: translate(100% , 100%);
-  }
-  .inCart{
- font-size: 1.2rem;
-    color:green;
-    padding: 0.5px;   
-    
-  }
-  .product_button img{
-    width: 1.7rem;  
-  }
-  .product_button:hover{
-    border:2px solid white;
-    
-  }
-  
+  border: none;
+  border-radius: 5px 0 0 0;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  transform: translate(100%, 100%);
+}
+.inCart {
+  font-size: 1.2rem;
+  color: green;
+  padding: 0.5px;
+}
+.product_button img {
+  width: 1.7rem;
+}
+.product_button:hover {
+  border: 2px solid white;
+}
 
-
-.imgContainer:hover span  {
+.imgContainer:hover span {
   color: aliceblue;
 }
-.imgContainer:hover strong  {
+.imgContainer:hover strong {
   color: aliceblue;
 }
 
-
-.imgContainer:hover .product_button{
-  transform: translate(0 , 0);
+.imgContainer:hover .product_button {
+  transform: translate(0, 0);
 }
 
-
-.imgContainer:hover{
-  background: url(https://wp-lessons.com/wp-content/uploads/2015/01/magnifier.png) no-repeat center;
-border-color: aliceblue;
-background-color: rgba(0,0,0,0.8);
-z-index: 1;
--webkit-transition: all 0.2s linear;
-transition: all 0.2s linear;
+.imgContainer:hover {
+  background: url(https://wp-lessons.com/wp-content/uploads/2015/01/magnifier.png)
+    no-repeat center;
+  border-color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
-.imgContainer:hover img{
+.imgContainer:hover img {
   opacity: 0.3;
   z-index: 0;
 }
-.imgContainer:active{
+.imgContainer:active {
   opacity: 0;
 }
 .dropdown {
@@ -76,55 +69,55 @@ transition: all 0.2s linear;
   width: 100%;
   text-align: center;
 }
-.global{
+.global {
   display: flex;
   justify-content: center;
   width: 100%;
 }
-.text{
+.text {
   width: 80%;
   border: 1px solid black;
   border-radius: 4px;
   background-color: white;
   padding: 10px;
 }
-.text input{
+.text input {
   width: 95%;
-  border:none;
+  border: none;
   outline: none;
 }
-.arrow{
+.arrow {
   width: 5%;
 }
- .dropbtn {
+.dropbtn {
   right: 20px;
   position: relative;
   border: solid black;
-border-width: 0 3px 3px 0;
-display: inline-block;
-padding: 3px;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
-.inp{
+.inp {
   font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 80%;
-    border: 0;
-    margin-top: 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
+  outline: 0;
+  background: #f2f2f2;
+  width: 80%;
+  border: 0;
+  margin-top: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
-.start{
+.start {
   text-align: center;
-    margin-top: 30px;
-    font-size: 1em;
-    background-color: white;
-    font-family: sans-serif;
-    padding: 10px;
+  margin-top: 30px;
+  font-size: 1em;
+  background-color: white;
+  font-family: sans-serif;
+  padding: 10px;
 }
-.start li{
+.start li {
   margin-bottom: 10px;
 }
 .dropdown_content {
@@ -139,11 +132,11 @@ padding: 3px;
   z-index: 1;
   width: 80%;
 }
-.dropdown_content li:hover{
+.dropdown_content li:hover {
   cursor: pointer;
   background-color: white;
-    border: 1px solid black;
-    border-radius: 4px;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 @keyframes click-wave {
   0% {
@@ -160,26 +153,31 @@ padding: 3px;
     opacity: 0;
   }
 }
-.option{
+.option {
   position: relative;
   width: 90%;
   left: 5%;
   text-align: left;
 }
 
-.butt{
+.butt {
   font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    margin-top: 30px;
-    background: black;
-    width: 200px;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    transition: all 0.3 ease;
-    cursor: pointer;
+  text-transform: uppercase;
+  outline: 0;
+  margin-top: 30px;
+  background: black;
+  width: 200px;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.option li {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
 }
 .option input {
   -webkit-appearance: none;
@@ -187,13 +185,9 @@ padding: 3px;
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
-  position: relative;
-  top: 13.33333px;
-  right: 0;
-  bottom: 0;
-  left: 0;
   height: 40px;
   width: 40px;
+  min-width: 40px;
   transition: all 0.15s ease-out 0s;
   background: #cbd1d8;
   border: none;
@@ -202,7 +196,6 @@ padding: 3px;
   display: inline-block;
   margin-right: 0.5rem;
   outline: none;
-  position: relative;
   z-index: 1000;
 }
 .option input:hover {
@@ -210,7 +203,6 @@ padding: 3px;
   cursor: pointer;
 }
 .option label:hover {
-  
   cursor: pointer;
 }
 .option input:checked {
@@ -220,7 +212,7 @@ padding: 3px;
   height: 40px;
   width: 40px;
   position: absolute;
-  content: '✔';
+  content: "✔";
   display: inline-block;
   font-size: 26.66667px;
   text-align: center;
@@ -231,7 +223,7 @@ padding: 3px;
   -moz-animation: click-wave 0.65s;
   animation: click-wave 0.65s;
   background: #40e0d0;
-  content: '';
+  content: "";
   display: block;
   position: relative;
   z-index: 100;
