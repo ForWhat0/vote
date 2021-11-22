@@ -102,7 +102,7 @@ const APP = () => {
             <div className={s.welcome_background}>
               <div className={s.welcome_main}>
                 <strong className={s.welcome_main_text}>
-                  Цифрова трансформація бізнесу в Україні
+                  Цифрова трансформація бізнесу
                 </strong>
                 <ProductConsumer>
                   {product => {
